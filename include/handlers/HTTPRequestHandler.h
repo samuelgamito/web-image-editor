@@ -14,6 +14,6 @@ class HTTPRequestHandler {
   std::string method;
   std::string body;
   std::string contentType;
-}
+};
 
 #endif  // HTTPREQUESTHANDLER_H
