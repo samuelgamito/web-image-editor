@@ -1,10 +1,9 @@
 CLANG_FORMAT = clang-format
 STYLE = Google
 SRC_DIR = .
-FILE_EXTENSIONS = h
 
 # Find all C++ source and header files
-SRC_FILES = $(shell find $(SRC_DIR) -type f \( $(foreach ext, $(FILE_EXTENSIONS), -name '*.$(ext)') \))
+SRC_FILES = $(shell find $(SRC_DIR) -type f \( -name "*.cpp" -o -name "*.h" \))
 
 # Default target
 all:
@@ -12,6 +11,7 @@ all:
 
 # Format all files in place
 format:
+	@echo "formating: $(SRC_FILES)"
 	@echo "Formatting files with clang-format ($(STYLE) style)..."
 	@$(foreach file, $(SRC_FILES), $(CLANG_FORMAT) -i --style=$(STYLE) $(file);)
 	@echo "Formatting complete."
