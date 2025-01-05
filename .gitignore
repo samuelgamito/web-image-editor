@@ -35,3 +35,7 @@
 ./**/build/
 ./**/build/*
 ./build/
+build.
+**/build/
+
+.idea/
