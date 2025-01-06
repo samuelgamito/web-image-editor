@@ -27,11 +27,11 @@ format-dry-run:
 
 ## Build
 build:
-	@cmake --build build
+	@cmake --build build -v
 
 ## Build And Run
 build-run:
-	@cmake --build build
+	@cmake --build build -v
 	@build/./WebImageEditor
 
 # Clean build project

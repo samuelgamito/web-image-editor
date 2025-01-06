@@ -38,4 +38,5 @@
 build.
 **/build/
 
+**/cmake-*/
 .idea/

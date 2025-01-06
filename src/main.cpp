@@ -2,32 +2,13 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <iostream>
+
 #include "../include/ThreadPool.h"
+#include "../include/core/HTTPHandler.h"
 
-const int PORT = 8080;
-const int BUFFER_SIZE = 1024;
-
-void handleClient(int clientSocket) {
-  char buffer[BUFFER_SIZE] = {0};
-
-  off_t offset = 0;
-  while (pread(clientSocket, buffer, BUFFER_SIZE, offset) > 0) {
-    std::cout << "HTTP Request:\n" << buffer << std::endl;
-    offset += BUFFER_SIZE;
-  }
-
-  std::string httpResponse =
-      "HTTP/1.1 200 OK\r\n"
-      "Content-Type: text/plain\r\n"
-      "Content-Length: 13\r\n"
-      "\r\n"
-      "Hello, World!";
-
-  send(clientSocket, httpResponse.c_str(), httpResponse.size(), 0);
-
-  // Close the client socket
-  close(clientSocket);
-}
+constexpr int PORT = 8080;
+constexpr int BUFFER_SIZE = 1024;
 
 int main() {
   // Create socket
@@ -38,7 +19,7 @@ int main() {
   }
 
   // Configure server address
-  sockaddr_in address;
+  sockaddr_in address{};
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
   address.sin_port = htons(PORT);
@@ -72,7 +53,8 @@ int main() {
     }
 
     // Enqueue a task to handle the client
-    threadPool.enqueue([clientSocket]() { handleClient(clientSocket); });
+    threadPool.enqueue(
+        [clientSocket]() { HTTPHandler::handleClientRequest(clientSocket); });
   }
 
   // Close the server socket

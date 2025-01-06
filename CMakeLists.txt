@@ -11,7 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Source files
 file(GLOB SOURCES
         ${CMAKE_SOURCE_DIR}/src/*.cpp
-        ${CMAKE_SOURCE_DIR}/src/handlers/*.cpp)
+        ${CMAKE_SOURCE_DIR}/src/core/*.cpp)
+
 
 # Add the executable target
 add_executable(${PROJECT_NAME} ${SOURCES})
