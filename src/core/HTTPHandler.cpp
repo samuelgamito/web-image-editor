@@ -3,6 +3,8 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <iostream>
+
 constexpr int BUFFER_SIZE = 1024;
 
 using namespace std;
